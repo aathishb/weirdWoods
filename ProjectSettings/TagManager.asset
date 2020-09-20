@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - ground
+  - spring
+  - mountains
+  - trees
+  - tree
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - background
+  - ground
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: distance
+    uniqueID: 2985702515
+    locked: 0
+  - name: mountains
+    uniqueID: 4277545627
+    locked: 0
+  - name: trees
+    uniqueID: 2133725449
+    locked: 0
+  - name: tree
+    uniqueID: 1665727261
+    locked: 0
+  - name: entity
+    uniqueID: 2954375697
+    locked: 0
+  - name: ground
+    uniqueID: 271586783
+    locked: 0
