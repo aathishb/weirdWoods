@@ -7,10 +7,10 @@ public class spawner : MonoBehaviour
 
     // The current elapsed time and the total time to wait before spawning.
     float currentTime;
-    public float spawnTime;
+    float spawnTime = 2.6f;
 
     // Minimum spawn time.
-    float minTime = 1;
+    float minTime = 0.88f;
 
     // Stores previous and current spawned objects (indexes of).
     int i0, i1;

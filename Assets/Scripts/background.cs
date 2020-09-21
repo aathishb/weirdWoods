@@ -5,7 +5,7 @@ public class background : MonoBehaviour
     // Variables to help background move, creating parallax effect.
     Vector2 targetPos;
     static float step = 0, speed = 0;
-    static float maxSpeed = 6;
+    static float maxSpeed = 6.6f;
     static float startX = 49.13f;
     static float endX = -18.63f;
     static float mountainSpd = 0;

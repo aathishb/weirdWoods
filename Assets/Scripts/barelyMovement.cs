@@ -23,7 +23,7 @@ public class barelyMovement : MonoBehaviour
     float rRunSpeed = 120;
     float lRunSpeed = 120;
     public float step = 0, speed;
-    float maxSpeed = 6;
+    float maxSpeed = 6.6f;
     Vector2 pushPos;
 
     /** Keeps track of whether player is grounded, currently dashing,
