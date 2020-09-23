@@ -27,8 +27,8 @@ public class barelyMovement : MonoBehaviour
     Vector2 pushPos;
 
     /** Keeps track of whether player is grounded, currently dashing,
-      * is able to dash, and is ascending. */
-    bool grounded, moving, dashing, canDash, ascending;
+      * is able to dash, is ascending, and is dead. */
+    bool grounded, moving, dashing, canDash, ascending, dead;
 
     // X and Y velocities.
     float vy0, vy, vx;
@@ -41,7 +41,7 @@ public class barelyMovement : MonoBehaviour
     float dashLenComponent = 2f;
     float dashStep = Mathf.Sqrt(0.18f);
     float dashStepComponent = 0.3f;
-    float belowPlatformThreshold = 1.45f;
+    float belowPlatformThreshold = 1.465f;
 
     // Eight directions to dash.
     enum direction { N, NE, E, SE, S, SW, W, NW };
@@ -55,6 +55,7 @@ public class barelyMovement : MonoBehaviour
         deadBgm.Stop();
         ascending = false;
         dashing = false;
+        dead = false;
         Invoke("initialize", 3);
         gameBgm.Play();
     }
@@ -75,7 +76,7 @@ public class barelyMovement : MonoBehaviour
         }
 
         // Let gravity affect the player.
-        else if (!grounded && !dashing && !ascending)
+        else if ((!grounded && !dashing && !ascending) || dead)
         {
             if (vy > -jumpVel*2)
             {
@@ -86,7 +87,7 @@ public class barelyMovement : MonoBehaviour
         }
 
         // Initiate a dash.
-        if (canDash && Input.GetKeyDown(KeyCode.LeftShift))
+        if (canDash && Input.GetKeyDown(KeyCode.LeftShift) && !dead)
             initiateDash();
 
         // Move in direction of dash if dash isn't completed, else stop dashing.
@@ -231,14 +232,18 @@ public class barelyMovement : MonoBehaviour
             float d = c.collider.GetComponent<platforms>().platformYpos;
             //print("Platform: " + d + "\n" + "Player: " + pos.y + "\n" + "Difference:" + (pos.y - d));
             if (pos.y - d < belowPlatformThreshold)
+            {
                 ascending = false;
+                canDash = false;
+                dead = true;
+            }
             else
             {
                 vy0 = 0;
                 vy = 0;
                 grounded = true;
+                canDash = true;
             }
-            canDash = true;
             dashing = false;
 
             // Only increment score if player lands on a different platform.
@@ -266,9 +271,9 @@ public class barelyMovement : MonoBehaviour
             grounded = false;
     }
 
-    // If player hits trigger (tornado), start ascending.
     void OnTriggerEnter2D(Collider2D c)
     {
+        // If player hits trigger (finish), end the game.
         if (c.tag == "Finish")
         {
             Instantiate(deathEffect, transform.position, Quaternion.identity);
@@ -276,6 +281,8 @@ public class barelyMovement : MonoBehaviour
             character.enabled = false;
             Invoke("gameOver", 1);
         }
+
+        // If player hits trigger (tornado), start ascending.
         else
         {
             x = pos.x;
